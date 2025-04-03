@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>水墨留白 | 传统美学博客</title>
+    <style>
+        /* 自定义CSS变量 - 中国传统色 */
+        :root {
+            --朱红: #cb1b45;
+            --黛蓝: #2a5caa;
+            --松花绿: #057748;
+            --玉灰: #d7d7d7;
+            --月白: #f0f6fa;
+            --琥珀: #ca6924;
+        }
+
+        /* 基础样式重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+
+        /* 高斯模糊背景层 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: url('https://picsum.photos/1920/1080') center/cover;
+            filter: blur(10px);
+            z-index: -1;
+        }
+
+        /* 主体内容容器 */
+        .container {
+            background: rgba(255, 255, 255, 0.85);
+            min-height: 100vh;
+            backdrop-filter: blur(8px);
+        }
+
+        /* 导航栏样式 */
+        header {
+            padding: 1rem 5%;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            transition: transform 0.3s;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--黛蓝);
+            text-decoration: none;
+            margin-left: 2rem;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .nav-links a:hover {
+            background: var(--月白);
+            color: var(--琥珀);
+        }
+
+        /* 文章卡片 */
+        .article-list {
+            padding: 6rem 5% 3rem;
+            display: grid;
+            gap: 2rem;
+        }
+
+        .article-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s;
+        }
+
+        .article-card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <nav>
+                <h1 style="color: var(--朱红);">水墨留白</h1>
+                <div class="nav-links">
+                    <a href="#">首页</a>
+                    <a href="#">文章</a>
+                    <a href="#">关于</a>
+                    <a href="#">联系</a>
+                </div>
+            </nav>
+        </header>
+
+        <main class="article-list">
+            <article class="article-card">
+                <h2 style="color: var(--松花绿);">青花瓷中的美学密码</h2>
+                <p style="color: var(--琥珀); margin: 1rem 0;">发布日期：2023年8月10日</p>
+                <p style="color: var(--黛蓝); line-height: 1.6;">中国传统工艺美术的巅峰之作，青花瓷以其独特的蓝白配色和精湛工艺闻名于世...</p>
+            </article>
+
+            <article class="article-card">
+                <h2 style="color: var(--松花绿);">二十四节气与色彩哲学</h2>
+                <p style="color: var(--琥珀); margin: 1rem 0;">发布日期：2023年8月8日</p>
+                <p style="color: var(--黛蓝); line-height: 1.6;">中国传统二十四节气不仅指导农事，更蕴含着独特的色彩审美体系...</p>
+            </article>
+        </main>
+
+        <footer style="background: var(--月白); padding: 2rem 5%; text-align: center;">
+            <p style="color: var(--黛蓝);">© 2023 水墨留白 传承中华美学</p>
+        </footer>
+    </div>
+
+    <script>
+        // 滚动时隐藏/显示导航栏
+        let lastScroll = 0;
+        const header = document.querySelector('header');
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > lastScroll && currentScroll > 100) {
+                header.style.transform = 'translateY(-100%)';
+            } else {
+                header.style.transform = 'translateY(0)';
+            }
+            
+            lastScroll = currentScroll;
+        });
+
+        // 卡片悬停效果
+        document.querySelectorAll('.article-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+    </script>
+</body>
+</html>
